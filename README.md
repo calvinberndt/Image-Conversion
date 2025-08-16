@@ -41,7 +41,10 @@ Both scripts use the [Pillow](https://python-pillow.org/) library for image proc
   - Encodes the PNG in base64.
   - Creates an SVG file with the PNG embedded as an `<image>` element.
 
-- **Default behavior**: Converts `SparkSymposium1.png` to `SparkSymposium1.svg` (filenames can be changed in the script).
+- **CLI**:
+  - Run: `python scripts/png_to_svg.py <input_png> [-o OUTPUT_SVG]`
+  - If `<input_png>` is a bare filename (e.g., `phoenix.png`), it is resolved under the repository's `images/` directory.
+  - If `-o/--output` is omitted, the output `.svg` is written alongside the input with the same basename.
 
 ---
 
@@ -86,17 +89,24 @@ Both scripts use the [Pillow](https://python-pillow.org/) library for image proc
 
 ### Basic PNG to SVG
 
-To convert a PNG to SVG without background removal:
+To convert a PNG to SVG without background removal using the CLI:
 
 ```bash
-python scripts/png_to_svg.py
+# Use a bare filename (looked up in images/)
+python scripts/png_to_svg.py phoenix.png
+
+# Use an explicit path to the PNG
+python scripts/png_to_svg.py images/phoenix.png
+
+# Specify a custom output SVG path
+python scripts/png_to_svg.py images/phoenix.png -o images/phoenix.svg
+
+# Show help
+python scripts/png_to_svg.py -h
 ```
 
-- By default, this converts `SparkSymposium1.png` to `SparkSymposium1.svg`.
-- To use different files, edit the last line of `png_to_svg.py`:
-  ```python
-  png_to_svg("your_input.png", "your_output.svg")
-  ```
+Notes:
+- Only `.png` inputs are supported.
 
 ### PNG to SVG with Background Removal
 
